@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.UI;
 
 public class LocationManager : MonoBehaviour
@@ -84,6 +85,15 @@ public class LocationManager : MonoBehaviour
             playbackButton.gameObject.SetActive(true);
             recordButton.gameObject.SetActive(false);
         }
+    }
+
+    public void deleteRecording()
+    {
+        var recorder = GetComponent<MovementRecorder>();
+
+        recorder.positions = null;
+        recorder.rotations = null;
+
     }
     
     
