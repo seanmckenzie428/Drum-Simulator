@@ -28,6 +28,7 @@ public class LocationManager : MonoBehaviour
         foreach (var o in objectsToRecord)
         {
             o.GetComponent<Rigidbody>().isKinematic = true;
+            o.GetComponent<MovementRecorder>().LoadRecording();
         }
 
         Debug.Log(recordingStatus);
@@ -51,7 +52,7 @@ public class LocationManager : MonoBehaviour
                 _lastTimeRecorded = Time.time;
             }
 
-        } else if (isPlayback && _hasRecording)
+        } else if (isPlayback)
         {
             if (_lastTimePositionSet + recordInterval <= Time.time)
             {
@@ -120,24 +121,21 @@ public class LocationManager : MonoBehaviour
     {
         Debug.Log("TogglePlayback");
         Debug.Log(isPlayback);
-        if (_hasRecording)
+        isPlayback = !isPlayback;
+        _playbackCounter = 0;
+        if (isPlayback)
         {
-            isPlayback = !isPlayback;
-            _playbackCounter = 0;
-            if (isPlayback)
+            foreach (var o in objectsToRecord)
             {
-                foreach (var o in objectsToRecord)
-                {
-                    o.GetComponent<Rigidbody>().isKinematic = true;
-                }
-                playbackStatus.text = "Playing...";
-                playbackStatus.color = Color.green;
+                o.GetComponent<Rigidbody>().isKinematic = true;
             }
-            else
-            {
-                playbackStatus.text = "Playback ready";
-                playbackStatus.color = Color.blue;
-            }
+            playbackStatus.text = "Playing...";
+            playbackStatus.color = Color.green;
+        }
+        else
+        {
+            playbackStatus.text = "Playback ready";
+            playbackStatus.color = Color.blue;
         }
 
     }
@@ -153,6 +151,14 @@ public class LocationManager : MonoBehaviour
         {
             playbackButton.gameObject.SetActive(true);
             recordButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void SaveRecording()
+    {
+        foreach (var o in objectsToRecord)
+        {
+            o.GetComponent<MovementRecorder>().SaveRecording();
         }
     }
 
