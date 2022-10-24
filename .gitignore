@@ -61,3 +61,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Don't know what this folder is for but I think it's for the built apk. Anyways it won't push to github so I'm adding it to the gitignore
+/DrumSimulator_BackUpThisFolder_ButDontShipItWithYourGame/
+

@@ -14,14 +14,17 @@ public class MovementRecorder : MonoBehaviour
         rotations.Add(transform.rotation);
     }
 
-    public void Restore(int point)
+    public bool Restore(int point)
     {
         if (point < positions.Count && point < rotations.Count) 
         {
             var t = transform;
             t.position = positions[point];
             t.rotation = rotations[point];
+            return true;
         }
+
+        return false;
     }
 }
 
