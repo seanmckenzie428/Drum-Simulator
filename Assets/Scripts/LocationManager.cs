@@ -27,7 +27,9 @@ public class LocationManager : MonoBehaviour
         objectsToRecord = GameObject.FindGameObjectsWithTag("record");
         foreach (var o in objectsToRecord)
         {
-            o.GetComponent<Rigidbody>().isKinematic = true;
+            var rig = o.GetComponent<Rigidbody>();
+            if (rig)
+                rig.isKinematic = true;
             o.GetComponent<MovementRecorder>().LoadRecording();
         }
 
@@ -44,7 +46,9 @@ public class LocationManager : MonoBehaviour
             {
                 foreach (var o in objectsToRecord)
                 {
-                    o.GetComponent<Rigidbody>().isKinematic = false;
+                    var rig = o.GetComponent<Rigidbody>();
+                    if (rig)
+                        rig.isKinematic = true;
                     var recorder = o.GetComponent<MovementRecorder>();
                     recorder.Record();
                 }
@@ -59,7 +63,9 @@ public class LocationManager : MonoBehaviour
                 var isPlaying = false;
                 foreach (var o in objectsToRecord)
                 {
-                    o.GetComponent<Rigidbody>().isKinematic = true;
+                    var rig = o.GetComponent<Rigidbody>();
+                    if (rig)
+                        rig.isKinematic = true;
                     isPlaying = o.GetComponent<MovementRecorder>().Restore(_playbackCounter);
                 }
                 _playbackCounter++;
@@ -88,7 +94,9 @@ public class LocationManager : MonoBehaviour
         {
             foreach (var o in objectsToRecord)
             {
-                o.GetComponent<Rigidbody>().isKinematic = true;
+                var rig = o.GetComponent<Rigidbody>();
+                if (rig)
+                    rig.isKinematic = true;
             }
             _hasRecording = true;
             playbackStatus.text = "Playback ready";
@@ -127,7 +135,9 @@ public class LocationManager : MonoBehaviour
         {
             foreach (var o in objectsToRecord)
             {
-                o.GetComponent<Rigidbody>().isKinematic = true;
+                var rig = o.GetComponent<Rigidbody>();
+                if (rig)
+                    rig.isKinematic = true;
             }
             playbackStatus.text = "Playing...";
             playbackStatus.color = Color.green;
